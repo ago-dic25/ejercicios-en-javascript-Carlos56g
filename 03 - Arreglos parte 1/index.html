@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Arreglos 💪</title>
 
 </head>
+
 <body>
   <p><em>Abrir consola</em> 💁</p>
   <script>
-   //Inventores
+    //Inventores
 
     const inventors = [
       { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
@@ -32,29 +34,53 @@
       'Berne, Eric', 'Berra, Yogi', 'Berry, Wendell', 'Bevan, Aneurin', 'Ben-Gurion, David', 'Bevel, Ken', 'Biden, Joseph', 'Bennington, Chester', 'Bierce, Ambrose',
       'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
     ];
-    
-    
-    // 1. Filter para filtrar la lista de inventores que nacieron en los 1500
 
+
+    // 1. Filter para filtrar la lista de inventores que nacieron en los 1500
+    const fifteen = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600);
+    console.log("Inventores nacidos en los 1500:", fifteen);
     // Array.prototype.map()
     // 2. Un arreglo de los apellidos de los inventores
-    
+    const lastNames = inventors.map(inventor => inventor.last);
+    console.log("Apellidos de los inventores:", lastNames);
     // Array.prototype.sort()
     // 3. Ordenar los inventores por fecha de nacimiento, de los mas viejos a los mas jovenes
-    
+    const orderedByBirth = inventors.sort((a, b) => a.year - b.year);
+    console.log("Ordenados por fecha de nacimiento:", orderedByBirth);
     // Array.prototype.reduce()
     // 4. Cuantos años vivieron todos en total?
+    const totalYears = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year);
+    }, 0);
+    console.log("Años vividos por todos:", totalYears);
 
     // 5. Ordenar los inventores por años que vivieron
+    const orderedByLifespan = inventors.sort((a, b) => {
+      const lastGuy = a.passed - a.year;
+      const nextGuy = b.passed - b.year;
 
+      return lastGuy - nextGuy;
+    });
+    console.log("Ordenados por años vividos:", orderedByLifespan);
 
     // 6. sort 
     // Ordenar la gente alfabeticamente por apellido 
+    const alpha = people.sort((a, b) => {
+      const [aLast] = a.split(", ");
+      const [bLast] = b.split(", ");
 
+      return aLast.localeCompare(bLast);
+    });
+    console.log("Gente ordenada por apellido:", alpha);
     // 7. Reduce
     // Sumar las instancias de cada uno de los siguientes medios de transporte
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+    const transportation = data.reduce((obj, item) => {
+      obj[item] = (obj[item] || 0) + 1;
+      return obj;
+    }, {});
+    console.log("Instancias de transporte:", transportation);
   </script>
 </body>
+
 </html>

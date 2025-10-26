@@ -1,51 +1,94 @@
-var alumnos = [
-    "Carlos Manuel",
-    "Cesar Oziel",
-    "Regina",
-    "Diego Leonardo",
-    "Andrea Carolina",
-    "Mayela Mayté",
-    "Eder Abraham",
-    "Diego Alonso",
-    "Naomi Michelle",
-    "Eder Abisai",
-    "Regina", //Dariela
-    "Carlos", //Manuel
-    "Carlos" //Alejandro
-,];
+var alumnosJSON = [
+    {
+        nombre: "Carlos",
+        matricula: 2133000
+    },
+    {
+        nombre: "Manuel",
+        matricula: 2123213
+    },
+    {
+        nombre: "Cesar",
+        matricula: 3123123
+    },
+    {
+        nombre: "Oziel",
+        matricula: 1234234
+    },
+    {
+        nombre: "Regina",
+        matricula: 3453412
+    },
+];
 
-//elimina el ultimo elemento del arreglo
-alumnos.pop();
+var resultJSON;
 
-//Agregar 
-alumnos.push("Edgar Aurelio");
+window.addEventListener("load", () => {
+    updateResult(alumnosJSON);
+});
 
-//elimina al inicio
-alumnos.shift();
+//Creates the Divs with the students
+function updateResult(list) {
+    const resultDiv = document.getElementById("resultDiv");
+    resultDiv.innerHTML = ""; // Clear the content when the filter changes
+    list.forEach(alumno => {
+        var alumnoDiv = document.createElement("div");
+        alumnoDiv.className = "AlumnoDiv";
+        const alumnoInfo = document.createElement("p");
+        alumnoInfo.textContent = `Nombre: ${alumno.nombre}, Matricula: ${alumno.matricula}`;
+        alumnoDiv.appendChild(alumnoInfo);
+        const deleteButton = document.createElement("button");
+        deleteButton.innerText = "Eliminar";
 
-//Agrega al inicio
-alumnos.unshift("Axel Gabriel");
+        deleteButton.addEventListener("click", () => {
+            const globalIndex = alumnosJSON.indexOf(alumno);
+            if (globalIndex !== -1) {
+                alumnosJSON.splice(globalIndex, 1);
+            }
 
-//Cambia valor de elemento
-alumnos[4]=  "Carlos Manuel";
+            updateResult(alumnosJSON);
+        });
+
+        alumnoDiv.appendChild(deleteButton);
+            resultDiv.appendChild(alumnoDiv);
+        });
+    }
+
+    //Filter
+    const filterInput = document.getElementById("filterInput");
+    filterInput.addEventListener("input", (event) => {
+        const searchValue = event.target.value.toLowerCase();
+        resultJSON = alumnosJSON.filter(alumno =>
+            alumno.nombre.toLowerCase().includes(searchValue)
+        );
+        updateResult(resultJSON);
+    });
+
+//Agregar
+const addButton = document.getElementById("addButton");
+addButton.addEventListener("click", (event) => {
+    const nameInput = document.getElementById("nameInput");
+    const idInput = document.getElementById("idInput");
+    const name = nameInput.value;
+    const id = idInput.value;
+    const newAlumno = {
+        nombre: name,
+        matricula: id
+    };
+    alumnosJSON.push(newAlumno);
+    updateResult(alumnosJSON);
+    nameInput.value = "";
+    idInput.value = "";
+});
 
 
-console.log(alumnos.indexOf("Eder Abisai"));
-console.log(alumnos.includes("Alejandro"));
+//Ordenar
+const orderButton = document.getElementById("orderButton");
+orderButton.addEventListener("click", () => {
+    alumnosJSON.sort((a, b) => {
+        return a.nombre.localeCompare(b.nombre);
+    });
+    updateResult(alumnosJSON);
+});
 
-console.log(alumnos.find(nombre => nombre == "Regina"));
-//Equivale a 
-// for(var i = 0; i <alumnos.length; i++){
-//     if(alumnos[i] == "Regina"){
-//         console.log(alumnos[i]);
-//         break;
-//     }
-// }
 
-console.log(alumnos.findIndex(nombre => nombre=="Regina"));
-// for(var j= 0; j < alumnos.length; j++){
-//     if(alumnos[j] == "Regina"){
-//         console.log(j);
-//         break;
-//     }
-// }

@@ -5,7 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arreglos intro</title>
 </head>
+<style>
+    .AlumnoDiv{
+        display: flex;
+        margin:10px;
+    }
+    .AlumnoDiv button{
+        margin:10px;
+    }
+</style>
+
 <body>
+    <h2>Filtro:</h2>
+    <input type="text" id="filterInput">
+    <h2>Nombre:</h2>
+    <input type="text" id="idInput">
+    <h2>Matricula:</h2>
+    <input type="text" id="nameInput">
+    <br><br>
+    <button type="button" id = "addButton">Agregar</button>
+    <button type="button" id = "orderButton">Ordenar por Nombre</button>
+    <div class = "resultDiv "id="resultDiv"></div>
     
 </body>
+
+<script src="script.js"></script>
 </html>
